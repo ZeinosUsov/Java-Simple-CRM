@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/head_fragment :: head(pageTitle='Список задач')}"></div>
+<body>
+<div class="container-fluid">
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col">
+                <form method="get">
+                    <label class="form-label" for="search">
+                        <input type="text" class="form-control" id="search" name="search"/>
+                    </label>
+                    <button type="submit" class="btn btn btn-primary">Поиск</button>
+                    <button type="reset" class="btn btn btn-primary">Очистить</button>
+                </form>
+            </div>
+            <div th:replace="~{fragments/profile_button_fragment :: profileButton}"></div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col justify-content-end d-flex">
+                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+                    <i class="fas fa-plus me-2"></i>Поставить задачу
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col" th:each="task: ${tasks}">
+                <div th:replace="~{fragments/task_card_fragment :: taskCard(
+                title=${task.title},
+                description=${task.description},
+                status=${task.status.getName()},
+                createdAt=${task.getFormattedCreatedAt()})}"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+     id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form th:action="@{/admin/tasks/addTask}" th:object="${task}" method="post">
+            <h2 class="text-center">Регистрация задачи</h2>
+            <div>
+                <label class="form-label" for="title">Название: </label>
+                <input type="text" class="form-control" placeholder="Введите название задачи" th:field="*{title}"
+                       id="title" required/>
+            </div>
+            <br>
+            <div>
+                <label class="form-label" for="description">Описание: </label>
+                <textarea type="text" class="form-control" placeholder="Введите описание задачи" th:field="*{description}" id="description" rows="7" required></textarea>
+            </div>
+            <br>
+            <div>
+                <label class="form-label" for="deadline">Сроки до: </label>
+                <input type="datetime-local" class="form-control" placeholder="Введите название задачи" th:field="*{deadline}" id="deadline" required/>
+            </div>
+            <br>
+            <div>
+                <label class="form-label" for="employee">Ответственный: </label>
+                <select class="form-select" th:field="*{user}" id="employee" required>
+                    <option value="" selected hidden="hidden">Выберите ответственного</option>
+                    <option th:each="employee : ${users}" th:value="${employee}" th:text="${employee.name} + ' ' + ${employee.surname}"></option>
+                </select>
+            </div>
+            <br>
+            <button class="btn btn-primary" type="submit">Добавить</button>
+            <button class="btn btn-secondary" type="reset">Очистить</button>
+        </form>
+    </div>
+</div>
+<th:block th:replace="~{/fragments/script_fragment :: scripts}"></th:block>
+</body>
+</html>

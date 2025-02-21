@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<div th:replace="~{fragments/head_fragment :: head(pageTitle='Пользователи')}"></div>
+<body>
+<div class="container-fluid">
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col">
+                <form method="get">
+                    <label class="form-label" for="search">
+                        <input type="text" class="form-control" id="search" name="search"/>
+                    </label>
+                    <button type="submit" class="btn btn btn-primary">Поиск</button>
+                    <button type="reset" class="btn btn btn-primary">Очистить</button>
+                </form>
+            </div>
+            <div th:replace="~{fragments/profile_button_fragment :: profileButton}"></div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <table class="table table-hover">
+            <thead class="table-header">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Номер телефона</th>
+                <th scope="col">Почта</th>
+                <th scope="col">Логин</th>
+                <th scope="col">Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${user_list}">
+                <th scope="row" th:text="${user.id}"></th>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.surname}"></td>
+                <td th:text="${user.phone}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.username}"></td>
+                <td>
+                    <a class="btn btn-primary" th:href="@{/admin/user/update(id=${user.id})}">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <a class="btn btn-danger" th:href="@{/admin/user/delete(id=${user.id})}">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<th:block th:replace="~{/fragments/script_fragment :: scripts}"></th:block>
+</body>
+
+</html>

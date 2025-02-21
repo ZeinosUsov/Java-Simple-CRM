@@ -1,0 +1,24 @@
+<div class="col text-end d-flex justify-content-end" th:fragment="profileButton">
+    <div class="dropdown me-2">
+        <button class="btn btn-primary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Профиль
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item" th:href="@{/admin/user/list}" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                    <i class="fas fa-cog me-2"></i>
+                    Админпанель
+                </a>
+                <a class="dropdown-item" th:href="@{/profile}">
+                    <i class="fas fa-user me-2"></i>
+                    Личный кабинет</a>
+                <a class="dropdown-item" th:href="@{/admin/tasks/list}">
+                    <i class="fas fa-tasks me-2"></i>
+                    Задачи</a>
+            </li>
+        </ul>
+    </div>
+    <form method="post" th:action="@{/logout}">
+        <input class="btn btn-danger" type="submit" value="Выход"/>
+    </form>
+</div>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<div th:replace="~{fragments/head_fragment :: head(pageTitle='Обновление пользователя')}"></div>
+<body>
+    <div class="container-fluid text-center">
+        <div class="row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <form method="post" th:action="@{/admin/user/update}" th:object="${user}">
+                    <input th:field="*{id}" type="hidden"/>
+                    <div class="container-fluid">
+                        <label class="form-label w-100" for="name"> Имя:
+                            <input th:field="*{name}" class="form-control" type="text" placeholder="Введите имя" id="name"/>
+                        </label>
+                    </div>
+                    <div class="container-fluid">
+                        <label class="form-label w-100" for="surname"> Фамилия:
+                            <input th:field="*{surname}" class="form-control" type="text" placeholder="Введите фамилию" id="surname"/>
+                        </label>
+                    </div>
+                    <div class="container-fluid">
+                        <label class="form-label w-100" for="username_reg"> Логин:
+                            <input th:field="*{username}" class="form-control" type="text" placeholder="Введите логин" id="username_reg"/>
+                        </label>
+                    </div>
+                    <input th:field="*{password}" class="form-control" type="hidden" placeholder="Введите пароль" id="password_reg"/>
+                    <div class="container-fluid">
+                        <label class="form-label w-100" for="email"> Почта:
+                            <input th:field="*{email}" class="form-control" type="email" placeholder="Введите почту" id="email"/>
+                        </label>
+                    </div>
+                    <div class="container-fluid">
+                        <label class="form-label w-100" for="phone"> Номер телефона:
+                            <input th:field="*{phone}" class="form-control" type="text" placeholder="Введите номер телефона" id="phone"/>
+                        </label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="onBack()">Вернуться</button>
+                        <span class="m-2"></span>
+                        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+    </div>
+    <th:block th:replace="~{/fragments/script_fragment :: scripts}"></th:block>
+</body>
+</html>

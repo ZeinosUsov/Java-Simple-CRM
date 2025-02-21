@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru">
+<div th:replace="~{fragments/head_fragment :: head(pageTitle='Личный кабинет')}"></div>
+<body>
+<div class="container-fluid">
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col">
+                <form method="get">
+                    <label class="form-label" for="search">
+                        <input type="text" class="form-control" id="search" name="search"/>
+                    </label>
+                    <button type="submit" class="btn btn btn-primary">Поиск</button>
+                    <button type="reset" class="btn btn btn-primary">Очистить</button>
+                </form>
+            </div>
+            <div th:replace="~{fragments/profile_button_fragment :: profileButton}"></div>
+        </div>
+    </div>
+    <hr>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col d-flex justify-content-center align-items-center">
+                <div class="text-center">
+                    <img class="rounded-circle border border-dark border-2"
+                         th:src="${user.filename != null ? '/uploads/' + user.filename : '/img/user_null.jpg'}"
+                         style="object-fit: cover"
+                         width="250px"
+                         height="250px"
+                         alt="Фото пользователя"/>
+                    <br>
+                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal"
+                            data-bs-target="#changePhotoModal">
+                        Сменить фото профиля
+                    </button>
+                </div>
+            </div>
+            <div class="col justify-content-start align-items-center">
+                <h5>Ваше имя:</h5>
+                <p class="fw-normal fs-6" th:text="${user.surname + ' ' + user.name}"></p>
+                <h5>Имя пользователя:</h5>
+                <p class="fw-normal fs-6" th:text="${user.username}"></p>
+                <h5>Почта:</h5>
+                <p class="fw-normal fs-6" th:text="${user.email}"></p>
+                <h5>Номер телефона:</h5>
+                <p class="fw-normal fs-6" th:text="${user.phone}"></p>
+                <p class="text-muted fw-light fst-italic fs-6">Ошиблись при вводе данных? Для изменения данных
+                    обратитесь к администратору</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="changePhotoModal" tabindex="-1" aria-labelledby="changePhoto" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePhoto">Смена фото профиля</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" enctype="multipart/form-data" th:action="@{/updatePhoto}">
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="photoInput" name="file" accept="image/*" required/>
+                    </div>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Сменить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="~{/fragments/script_fragment :: scripts}"></th:block>
+</body>
+</html>

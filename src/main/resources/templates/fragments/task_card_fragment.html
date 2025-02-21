@@ -1,0 +1,24 @@
+<div class="card h-100 shadow-lg zoom" th:fragment="taskCard(title, description, status, createdAt)">
+    <div class="card-header bg-gradient bg-primary text-white">
+        <h5 class="fw-bold card-title" th:text="${title}">Название задачи</h5>
+    </div>
+    <div class="card-body">
+        <p class="card-text" th:text="${description}">Описание задачи</p>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col">
+                <p class="card-text fw-bold">Статус:</p>
+                <p class="card-text">
+                    <span class="badge bg-warning rounded-pill fs-6" th:if="${status == 'Открыта'}" th:text="${status}"></span>
+                    <span class="badge bg-info rounded-pill fs-6" th:if="${status == 'В процессе'}" th:text="${status}"></span>
+                    <span class="badge bg-success rounded-pill fs-6" th:if="${status == 'Закрыта'}" th:text="${status}"></span>
+                </p>
+            </div>
+            <div class="col">
+                <p class="card-text fw-bold">Время добавления:</p>
+                <p class="card-text" th:text="${createdAt}"></p>
+            </div>
+        </div>
+    </div>
+</div>

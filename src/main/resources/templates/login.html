@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<div th:replace="~{fragments/head_fragment :: head(pageTitle='Авторизация')}"></div>
+<body>
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+        <div class="col-lg-4 col-md-6 col-sm-8 col-10">
+            <form method="post" th:action="@{/login}" class="p-4 shadow-lg rounded" id="loginForm">
+                <h2 class="text-center mb-4">Авторизация</h2>
+                <div th:if="${param.error}" class="alert alert-danger" role="alert" id="errorAlert">
+                    Неверное имя пользователя или пароль!
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success" role="alert" id="logoutAlert">
+                    Вы успешно вышли из системы.
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Логин:</label>
+                    <input class="form-control" type="text" placeholder="Введите логин" name="username" id="username"
+                           onfocus="hideMessages()"/>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Пароль:</label>
+                    <input class="form-control" type="password" placeholder="Введите пароль" name="password"
+                           id="password" onfocus="hideMessages()"/>
+                </div>
+                <div class="mb-3 form-check">
+                    <input class="form-check-input" type="checkbox" id="remember" name="remember-me"/>
+                    <label class="form-check-label" for="remember"> Запомнить меня </label>
+                </div>
+                <button class="btn btn-primary w-100" type="submit">Авторизоваться</button>
+            </form>
+            <div class="text-center mt-3">
+                <a class="link-primary" th:href="@{/registration}">Еще нет аккаунта?</a>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="~{/fragments/script_fragment :: scripts}"></th:block>
+</body>
+</html>
